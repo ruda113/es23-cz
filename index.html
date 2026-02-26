@@ -1,0 +1,1329 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Elektroservis 23 — Profesionální elektroinstalace</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Syne:wght@400;500;600;700;800&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --bg:#0a0a0a;
+  --surface:#111111;
+  --surface2:#181818;
+  --border:#242424;
+  --yellow:#f0c419;
+  --yellow-dim:#c9a314;
+  --white:#f5f5f0;
+  --grey:#888880;
+  --mid:#555550;
+}
+
+html{scroll-behavior:smooth}
+
+body{
+  font-family:'Syne',sans-serif;
+  background:var(--bg);
+  color:var(--white);
+  overflow-x:hidden;
+}
+
+/* ─── GRAIN OVERLAY ─── */
+body::before{
+  content:'';
+  position:fixed;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events:none;z-index:9999;opacity:.45;
+}
+
+/* ─── NAV ─── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  height:68px;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 56px;
+  background:rgba(10,10,10,0.88);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+}
+
+.nav-logo{
+  display:flex;align-items:center;gap:12px;
+}
+
+.logo-mark{
+  width:38px;height:38px;
+  background:var(--yellow);
+  display:flex;align-items:center;justify-content:center;
+  clip-path:polygon(12% 0%,88% 0%,100% 12%,100% 88%,88% 100%,12% 100%,0% 88%,0% 12%);
+  flex-shrink:0;
+}
+
+.logo-mark svg{width:20px;height:20px;}
+
+.logo-text{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:22px;
+  letter-spacing:3px;
+  color:var(--white);
+  line-height:1;
+}
+
+.logo-text span{color:var(--yellow);}
+
+.nav-links{
+  display:flex;gap:36px;list-style:none;
+}
+
+.nav-links a{
+  font-size:12px;
+  font-weight:600;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  color:var(--grey);
+  text-decoration:none;
+  transition:color .2s;
+}
+
+.nav-links a:hover{color:var(--white);}
+
+.nav-cta{
+  display:flex;align-items:center;gap:8px;
+  background:var(--yellow);
+  color:var(--bg);
+  font-size:11px;
+  font-weight:700;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  padding:10px 22px;
+  text-decoration:none;
+  clip-path:polygon(8px 0%,100% 0%,100% calc(100% - 8px),calc(100% - 8px) 100%,0% 100%,0% 8px);
+  transition:background .2s;
+}
+
+.nav-cta:hover{background:#ffd740;}
+
+/* ─── HERO ─── */
+.hero{
+  min-height:100vh;
+  padding-top:68px;
+  display:grid;
+  grid-template-columns:1fr 520px;
+  position:relative;
+  overflow:hidden;
+}
+
+/* circuit board background pattern */
+.hero::before{
+  content:'';
+  position:absolute;inset:0;
+  background-image:
+    linear-gradient(var(--border) 1px,transparent 1px),
+    linear-gradient(90deg,var(--border) 1px,transparent 1px);
+  background-size:60px 60px;
+  opacity:.35;
+}
+
+.hero-left{
+  position:relative;z-index:1;
+  display:flex;flex-direction:column;justify-content:center;
+  padding:80px 56px;
+}
+
+.hero-badge{
+  display:inline-flex;align-items:center;gap:10px;
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;
+  font-weight:400;
+  letter-spacing:1.5px;
+  color:var(--yellow);
+  margin-bottom:36px;
+}
+
+.hero-badge::before{
+  content:'';
+  display:block;width:32px;height:1px;
+  background:var(--yellow);
+}
+
+.hero-badge-dot{
+  width:6px;height:6px;border-radius:50%;
+  background:var(--yellow);
+  animation:pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse{
+  0%,100%{opacity:1;transform:scale(1);}
+  50%{opacity:.4;transform:scale(0.8);}
+}
+
+h1{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(72px,8vw,124px);
+  line-height:.92;
+  letter-spacing:2px;
+  color:var(--white);
+  margin-bottom:10px;
+}
+
+h1 .accent{
+  color:var(--yellow);
+  display:block;
+}
+
+.hero-sub{
+  font-family:'JetBrains Mono',monospace;
+  font-size:13px;
+  color:var(--grey);
+  letter-spacing:1px;
+  margin-bottom:40px;
+  font-weight:300;
+}
+
+.hero-desc{
+  font-size:15px;
+  color:var(--grey);
+  line-height:1.85;
+  max-width:460px;
+  font-weight:400;
+  margin-bottom:52px;
+  border-left:2px solid var(--yellow);
+  padding-left:20px;
+}
+
+.hero-ctas{
+  display:flex;gap:14px;align-items:center;flex-wrap:wrap;
+}
+
+.btn-primary{
+  display:inline-flex;align-items:center;gap:10px;
+  width:fit-content;
+  white-space:nowrap;
+  background:var(--yellow);
+  color:var(--bg);
+  font-size:12px;
+  font-weight:700;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  padding:15px 30px;
+  text-decoration:none;
+  clip-path:polygon(10px 0%,100% 0%,100% calc(100% - 10px),calc(100% - 10px) 100%,0% 100%,0% 10px);
+  transition:all .25s;
+}
+
+.btn-primary:hover{background:#ffd740;}
+
+.btn-outline{
+  display:inline-flex;align-items:center;gap:10px;
+  width:fit-content;
+  white-space:nowrap;
+  background:transparent;
+  color:var(--white);
+  font-size:12px;
+  font-weight:600;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  padding:14px 30px;
+  text-decoration:none;
+  border:1px solid var(--border);
+  transition:all .25s;
+}
+
+.btn-outline:hover{border-color:var(--grey);}
+
+.hero-stats{
+  display:flex;gap:0;
+  margin-top:72px;
+  padding-top:36px;
+  border-top:1px solid var(--border);
+  width:fit-content;
+}
+
+.hero-stat{
+  flex:none;
+  width:140px;
+  padding-right:32px;
+  border-right:1px solid var(--border);
+  margin-right:32px;
+}
+
+.hero-stat:last-child{border-right:none;margin-right:0;}
+
+.stat-number{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:48px;
+  color:var(--yellow);
+  line-height:1;
+  letter-spacing:1px;
+}
+
+.stat-label{
+  font-size:11px;
+  font-weight:600;
+  letter-spacing:1.5px;
+  text-transform:uppercase;
+  color:var(--mid);
+  margin-top:6px;
+}
+
+/* ─── HERO RIGHT PANEL ─── */
+.hero-right{
+  position:relative;z-index:1;
+  border-left:1px solid var(--border);
+  display:flex;flex-direction:column;
+  overflow:hidden;
+}
+
+.hero-panel-top{
+  flex:1;
+  display:flex;align-items:center;justify-content:center;
+  background:var(--surface);
+  border-bottom:1px solid var(--border);
+  position:relative;
+  padding:40px;
+}
+
+/* Electrical schematic SVG illustration */
+.hero-panel-bottom{
+  height:220px;
+  display:grid;grid-template-columns:1fr 1fr;
+}
+
+.mini-panel{
+  background:var(--surface2);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:10px;
+  padding:24px;
+  border-right:1px solid var(--border);
+  transition:background .25s;
+}
+
+.mini-panel:last-child{border-right:none;}
+.mini-panel:hover{background:var(--surface);}
+
+.mini-panel-icon{
+  width:44px;height:44px;
+  border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+}
+
+.mini-panel-label{
+  font-family:'JetBrains Mono',monospace;
+  font-size:10px;
+  letter-spacing:1.5px;
+  text-transform:uppercase;
+  color:var(--mid);
+  text-align:center;
+}
+
+/* ─── TICKER ─── */
+.ticker{
+  border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+  overflow:hidden;
+  padding:14px 0;
+  background:var(--surface);
+}
+
+.ticker-inner{
+  display:inline-flex;
+  animation:ticker 30s linear infinite;
+  white-space:nowrap;
+}
+
+.ticker-item{
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;
+  font-weight:400;
+  letter-spacing:3px;
+  text-transform:uppercase;
+  color:var(--mid);
+  padding:0 40px;
+}
+
+.ticker-sep{color:var(--yellow);padding:0 10px;}
+
+@keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ─── SECTIONS ─── */
+.section{
+  max-width:1320px;
+  margin:0 auto;
+  padding:100px 56px;
+}
+
+.eyebrow{
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;
+  font-weight:400;
+  letter-spacing:3px;
+  text-transform:uppercase;
+  color:var(--yellow);
+  margin-bottom:20px;
+  display:flex;align-items:center;gap:12px;
+}
+
+.eyebrow::before{
+  content:'//';
+  opacity:.5;
+}
+
+.section-h{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(40px,5vw,68px);
+  letter-spacing:2px;
+  color:var(--white);
+  line-height:1;
+  margin-bottom:16px;
+}
+
+.section-sub{
+  font-size:15px;
+  color:var(--grey);
+  line-height:1.8;
+  max-width:520px;
+  font-weight:400;
+}
+
+/* ─── SERVICES ─── */
+.services-bg{
+  background:var(--surface);
+  border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+}
+
+.services-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  border:1px solid var(--border);
+  margin-top:56px;
+}
+
+.srv-card{
+  padding:44px 36px;
+  border-right:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+  transition:background .25s;
+  cursor:pointer;
+  position:relative;
+  overflow:hidden;
+}
+
+.srv-card:nth-child(3n){border-right:none;}
+.srv-card:nth-child(n+4){border-bottom:none;}
+.srv-card:hover{background:var(--surface2);}
+
+.srv-card::before{
+  content:'';
+  position:absolute;top:0;left:0;right:0;
+  height:2px;
+  background:var(--yellow);
+  transform:scaleX(0);
+  transform-origin:left;
+  transition:transform .35s ease;
+}
+
+.srv-card:hover::before{transform:scaleX(1);}
+
+.srv-number{
+  font-family:'JetBrains Mono',monospace;
+  font-size:10px;
+  letter-spacing:2px;
+  color:var(--mid);
+  margin-bottom:24px;
+}
+
+.srv-icon{
+  width:52px;height:52px;
+  background:var(--border);
+  display:flex;align-items:center;justify-content:center;
+  margin-bottom:28px;
+  transition:background .25s;
+}
+
+.srv-card:hover .srv-icon{background:var(--yellow);}
+.srv-card:hover .srv-icon svg{stroke:#0a0a0a;}
+
+.srv-title{
+  font-family:'Syne',sans-serif;
+  font-size:18px;
+  font-weight:700;
+  color:var(--white);
+  margin-bottom:12px;
+  line-height:1.2;
+}
+
+.srv-desc{
+  font-size:13px;
+  color:var(--mid);
+  line-height:1.7;
+}
+
+.srv-arrow{
+  display:inline-flex;align-items:center;gap:8px;
+  margin-top:28px;
+  font-size:11px;
+  font-weight:700;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  color:var(--mid);
+  text-decoration:none;
+  transition:color .2s;
+}
+
+.srv-card:hover .srv-arrow{color:var(--yellow);}
+
+/* ─── ABOUT ─── */
+.about-grid{
+  display:grid;
+  grid-template-columns:480px 1fr;
+  gap:80px;
+  align-items:start;
+}
+
+.about-panel{
+  border:1px solid var(--border);
+  background:var(--surface);
+  position:sticky;
+  top:90px;
+}
+
+.about-panel-head{
+  padding:48px;
+  border-bottom:1px solid var(--border);
+  position:relative;
+  overflow:hidden;
+}
+
+.about-big-number{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:140px;
+  color:var(--white);
+  opacity:.04;
+  line-height:1;
+  position:absolute;
+  bottom:-20px;right:-10px;
+  letter-spacing:-2px;
+}
+
+.about-founded{
+  font-family:'JetBrains Mono',monospace;
+  font-size:10px;
+  letter-spacing:3px;
+  text-transform:uppercase;
+  color:var(--yellow);
+  margin-bottom:12px;
+}
+
+.about-tagline{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:36px;
+  letter-spacing:1px;
+  color:var(--white);
+  line-height:1.05;
+}
+
+.about-stats{
+  display:grid;grid-template-columns:1fr 1fr;
+}
+
+.about-stat{
+  padding:24px 28px;
+  border-right:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+}
+
+.about-stat:nth-child(even){border-right:none;}
+.about-stat:last-child,.about-stat:nth-last-child(2){border-bottom:none;}
+
+.about-stat-n{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:38px;
+  color:var(--yellow);
+  letter-spacing:1px;
+}
+
+.about-stat-l{
+  font-size:11px;
+  color:var(--mid);
+  letter-spacing:1px;
+  margin-top:3px;
+}
+
+.about-content .eyebrow{margin-top:0;}
+
+.features{display:flex;flex-direction:column;margin-top:44px;}
+
+.feat{
+  display:flex;gap:20px;align-items:flex-start;
+  padding:28px 0;
+  border-bottom:1px solid var(--border);
+}
+
+.feat:first-child{border-top:1px solid var(--border);}
+
+.feat-idx{
+  font-family:'JetBrains Mono',monospace;
+  font-size:10px;
+  letter-spacing:1px;
+  color:var(--yellow);
+  flex-shrink:0;
+  padding-top:3px;
+  width:24px;
+}
+
+.feat-title{
+  font-size:15px;
+  font-weight:700;
+  color:var(--white);
+  margin-bottom:6px;
+}
+
+.feat-text{
+  font-size:13px;
+  color:var(--mid);
+  line-height:1.7;
+}
+
+/* ─── PARTNERS ─── */
+.partners-bg{
+  background:var(--surface);
+  border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+}
+
+.partners-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:0;
+  border:1px solid var(--border);
+  margin-top:56px;
+}
+
+.partner-card{
+  padding:36px 28px;
+  border-right:1px solid var(--border);
+  transition:background .2s;
+}
+
+.partner-card:last-child{border-right:none;}
+.partner-card:hover{background:var(--surface2);}
+
+.partner-abbr{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:32px;
+  color:var(--yellow);
+  letter-spacing:2px;
+  margin-bottom:10px;
+}
+
+.partner-name{
+  font-size:14px;
+  font-weight:600;
+  color:var(--white);
+  margin-bottom:8px;
+}
+
+.partner-desc{
+  font-size:12px;
+  color:var(--mid);
+  line-height:1.6;
+}
+
+/* ─── PROCESS ─── */
+.process-bg{
+  background:var(--bg);
+}
+
+.steps{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  border:1px solid var(--border);
+  margin-top:56px;
+}
+
+.step{
+  padding:44px 32px;
+  border-right:1px solid var(--border);
+  position:relative;
+  transition:background .25s;
+}
+
+.step:last-child{border-right:none;}
+.step:hover{background:var(--surface);}
+
+.step::after{
+  content:'→';
+  position:absolute;
+  right:-14px;top:50%;
+  transform:translateY(-50%);
+  font-size:18px;
+  color:var(--border);
+  z-index:1;
+}
+
+.step:last-child::after{display:none;}
+
+.step-n{
+  font-family:'JetBrains Mono',monospace;
+  font-size:48px;
+  font-weight:300;
+  color:var(--border);
+  line-height:1;
+  margin-bottom:24px;
+}
+
+.step-title{
+  font-size:16px;
+  font-weight:700;
+  color:var(--white);
+  margin-bottom:10px;
+}
+
+.step-text{
+  font-size:13px;
+  color:var(--mid);
+  line-height:1.7;
+}
+
+/* ─── CONTACT ─── */
+.contact-wrapper{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  min-height:560px;
+  border-top:1px solid var(--border);
+}
+
+.contact-left{
+  background:var(--yellow);
+  padding:80px 56px;
+  display:flex;flex-direction:column;justify-content:center;
+}
+
+.contact-left .eyebrow{color:rgba(0,0,0,.5);}
+.contact-left .eyebrow::before{color:rgba(0,0,0,.3);}
+
+.contact-heading{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(44px,5vw,68px);
+  letter-spacing:2px;
+  color:var(--bg);
+  line-height:1;
+  margin-bottom:16px;
+}
+
+.contact-sub{
+  font-size:15px;
+  color:rgba(0,0,0,.6);
+  line-height:1.7;
+  max-width:380px;
+  font-weight:500;
+  margin-bottom:48px;
+}
+
+.contact-items{
+  display:flex;flex-direction:column;gap:24px;
+}
+
+.ci{
+  display:flex;gap:14px;align-items:flex-start;
+}
+
+.ci-dot{
+  width:8px;height:8px;
+  background:var(--bg);
+  flex-shrink:0;
+  margin-top:5px;
+}
+
+.ci-label{
+  font-size:10px;
+  font-weight:700;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  color:rgba(0,0,0,.5);
+  margin-bottom:3px;
+}
+
+.ci-value{
+  font-size:15px;
+  color:var(--bg);
+  font-weight:600;
+}
+
+.contact-right{
+  background:var(--surface);
+  padding:80px 56px;
+  display:flex;flex-direction:column;justify-content:center;
+}
+
+.contact-form-inner{
+  max-width:480px;
+}
+
+.form-heading{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:36px;
+  letter-spacing:2px;
+  color:var(--white);
+  margin-bottom:36px;
+}
+
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+
+.fg{margin-bottom:16px;}
+
+.fg label{
+  display:block;
+  font-family:'JetBrains Mono',monospace;
+  font-size:10px;
+  font-weight:400;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  color:var(--mid);
+  margin-bottom:8px;
+}
+
+.fg input,.fg textarea,.fg select{
+  width:100%;
+  max-width:100%;
+  background:var(--bg);
+  border:1px solid var(--border);
+  padding:13px 16px;
+  font-family:'Syne',sans-serif;
+  font-size:14px;
+  color:var(--white);
+  outline:none;
+  transition:border-color .2s;
+  appearance:none;
+  border-radius:0;
+}
+
+.fg input:focus,.fg textarea:focus,.fg select:focus{
+  border-color:var(--yellow);
+}
+
+.fg textarea{height:90px;resize:none;}
+.fg select option{background:var(--bg);}
+
+.submit-btn{
+  display:inline-flex;align-items:center;gap:16px;
+  width:fit-content;
+  white-space:nowrap;
+  background:var(--yellow);
+  color:var(--bg);
+  padding:16px 28px;
+  border:none;cursor:pointer;
+  font-family:'Syne',sans-serif;
+  font-size:12px;
+  font-weight:700;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  transition:background .2s;
+  margin-top:6px;
+  clip-path:polygon(8px 0%,100% 0%,100% calc(100% - 8px),calc(100% - 8px) 100%,0% 100%,0% 8px);
+}
+
+.submit-btn:hover{background:#ffd740;}
+
+/* ─── FOOTER ─── */
+footer{
+  background:var(--bg);
+  border-top:1px solid var(--border);
+  padding:36px 56px;
+  display:flex;align-items:center;justify-content:space-between;
+}
+
+.footer-logo{
+  display:flex;align-items:center;gap:10px;
+}
+
+.footer-logo-text{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:18px;
+  letter-spacing:3px;
+  color:var(--white);
+}
+
+.footer-logo-text span{color:var(--yellow);}
+
+.footer-links{
+  display:flex;gap:28px;list-style:none;
+}
+
+.footer-links a{
+  font-size:12px;font-weight:600;
+  letter-spacing:1.5px;text-transform:uppercase;
+  color:var(--mid);text-decoration:none;
+  transition:color .2s;
+}
+
+.footer-links a:hover{color:var(--white);}
+
+.footer-copy{
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;
+  color:var(--mid);
+}
+
+/* ─── DEMO TAG ─── */
+.demo-tag{
+  position:fixed;bottom:24px;right:24px;z-index:999;
+  background:var(--yellow);
+  color:var(--bg);
+  padding:10px 18px;
+  font-family:'JetBrains Mono',monospace;
+  font-size:10px;
+  font-weight:700;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  clip-path:polygon(8px 0%,100% 0%,100% calc(100% - 8px),calc(100% - 8px) 100%,0% 100%,0% 8px);
+  box-shadow:0 4px 20px rgba(240,196,25,.2);
+}
+
+/* ─── SCROLLBAR ─── */
+::-webkit-scrollbar{width:5px;}
+::-webkit-scrollbar-track{background:var(--bg);}
+::-webkit-scrollbar-thumb{background:var(--border);}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <div class="logo-mark">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#0a0a0a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+      </svg>
+    </div>
+    <div class="logo-text">ES<span>23</span></div>
+  </div>
+
+  <ul class="nav-links">
+    <li><a href="#">Služby</a></li>
+    <li><a href="#">Naše práce</a></li>
+    <li><a href="#">O nás</a></li>
+    <li><a href="#">Kontakt</a></li>
+  </ul>
+
+  <a href="#" class="nav-cta">Nezávazná poptávka</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-badge">
+      <div class="hero-badge-dot"></div>
+      Certifikovaný elektrikář · Severní Čechy
+    </div>
+
+    <h1>
+      Elektro<span class="accent">instalace</span>
+      na správné
+      <span class="accent">úrovni.</span>
+    </h1>
+
+    <p class="hero-sub">// kvalitní · bezpečné · dle norem ČSN</p>
+
+    <p class="hero-desc">
+      Kompletní elektroinstalace pro domácnosti i firmy. Každý detail řešíme pro vaši spokojenost i spokojenost revizních techniků — od přípojky až po zásuvku.
+    </p>
+
+    <div class="hero-ctas">
+      <a href="#" class="btn-primary">
+        Poptávka zdarma
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <a href="#" class="btn-outline">Naše služby</a>
+    </div>
+
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="stat-number">15+</div>
+        <div class="stat-label">Let zkušeností</div>
+      </div>
+      <div class="hero-stat">
+        <div class="stat-number">500+</div>
+        <div class="stat-label">Zakázek</div>
+      </div>
+      <div class="hero-stat">
+        <div class="stat-number">100%</div>
+        <div class="stat-label">Dle norem</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <!-- Electrical panel illustration -->
+    <div class="hero-panel-top">
+      <svg viewBox="0 0 320 380" fill="none" style="width:260px;opacity:0.18">
+        <!-- Main panel box -->
+        <rect x="20" y="20" width="280" height="340" rx="4" stroke="#f0c419" stroke-width="1.5"/>
+        <!-- Breakers -->
+        <rect x="44" y="52" width="100" height="28" rx="2" stroke="#f5f5f0" stroke-width="1.2"/>
+        <rect x="176" y="52" width="100" height="28" rx="2" stroke="#f5f5f0" stroke-width="1.2"/>
+        <rect x="44" y="94" width="100" height="28" rx="2" stroke="#f5f5f0" stroke-width="1.2"/>
+        <rect x="176" y="94" width="100" height="28" rx="2" stroke="#f5f5f0" stroke-width="1.2"/>
+        <rect x="44" y="136" width="100" height="28" rx="2" stroke="#f5f5f0" stroke-width="1.2"/>
+        <rect x="176" y="136" width="100" height="28" rx="2" stroke="#f5f5f0" stroke-width="1.2"/>
+        <rect x="44" y="178" width="232" height="28" rx="2" stroke="#f0c419" stroke-width="1.5"/>
+        <!-- Wiring diagram lines -->
+        <line x1="160" y1="220" x2="160" y2="310" stroke="#f0c419" stroke-width="1" stroke-dasharray="6 4"/>
+        <line x1="80" y1="260" x2="240" y2="260" stroke="#f5f5f0" stroke-width="1" opacity=".3"/>
+        <circle cx="160" cy="260" r="5" fill="#f0c419"/>
+        <circle cx="80" cy="260" r="3" fill="#f5f5f0" opacity=".5"/>
+        <circle cx="240" cy="260" r="3" fill="#f5f5f0" opacity=".5"/>
+        <!-- Breaker toggles -->
+        <rect x="63" y="61" width="12" height="10" rx="1" fill="#f0c419" opacity=".6"/>
+        <rect x="195" y="61" width="12" height="10" rx="1" fill="#f5f5f0" opacity=".2"/>
+        <rect x="63" y="103" width="12" height="10" rx="1" fill="#f5f5f0" opacity=".2"/>
+        <rect x="195" y="103" width="12" height="10" rx="1" fill="#f0c419" opacity=".6"/>
+        <rect x="63" y="145" width="12" height="10" rx="1" fill="#f0c419" opacity=".6"/>
+        <rect x="195" y="145" width="12" height="10" rx="1" fill="#f0c419" opacity=".6"/>
+        <!-- Label texts via lines -->
+        <line x1="44" y1="320" x2="116" y2="320" stroke="#f5f5f0" stroke-width="0.8" opacity=".15"/>
+        <line x1="44" y1="332" x2="90" y2="332" stroke="#f5f5f0" stroke-width="0.8" opacity=".1"/>
+        <line x1="176" y1="320" x2="276" y2="320" stroke="#f5f5f0" stroke-width="0.8" opacity=".15"/>
+        <line x1="176" y1="332" x2="240" y2="332" stroke="#f5f5f0" stroke-width="0.8" opacity=".1"/>
+      </svg>
+      <div style="position:absolute;top:20px;right:20px;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;color:#555550;text-transform:uppercase;">Rozváděč NN</div>
+    </div>
+
+    <div class="hero-panel-bottom">
+      <div class="mini-panel">
+        <div class="mini-panel-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#f0c419" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/>
+          </svg>
+        </div>
+        <div class="mini-panel-label">Domovní instalace</div>
+      </div>
+      <div class="mini-panel">
+        <div class="mini-panel-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#f0c419" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/>
+          </svg>
+        </div>
+        <div class="mini-panel-label">Kamerové systémy</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-inner">
+    <span class="ticker-item">Elektroinstalace</span><span class="ticker-sep">✦</span>
+    <span class="ticker-item">Kamerové systémy</span><span class="ticker-sep">✦</span>
+    <span class="ticker-item">Průmyslové rozváděče</span><span class="ticker-sep">✦</span>
+    <span class="ticker-item">Tepelná čerpadla</span><span class="ticker-sep">✦</span>
+    <span class="ticker-item">TV &amp; Internet</span><span class="ticker-sep">✦</span>
+    <span class="ticker-item">Revize &amp; Dokumentace</span><span class="ticker-sep">✦</span>
+    <span class="ticker-item">Přístupové systémy</span><span class="ticker-sep">✦</span>
+    <span class="ticker-item">Elektroinstalace</span><span class="ticker-sep">✦</span>
+    <span class="ticker-item">Kamerové systémy</span><span class="ticker-sep">✦</span>
+    <span class="ticker-item">Průmyslové rozváděče</span><span class="ticker-sep">✦</span>
+    <span class="ticker-item">Tepelná čerpadla</span><span class="ticker-sep">✦</span>
+    <span class="ticker-item">TV &amp; Internet</span><span class="ticker-sep">✦</span>
+    <span class="ticker-item">Revize &amp; Dokumentace</span><span class="ticker-sep">✦</span>
+    <span class="ticker-item">Přístupové systémy</span><span class="ticker-sep">✦</span>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<div class="services-bg">
+  <div class="section">
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:20px;">
+      <div>
+        <div class="eyebrow">Naše služby</div>
+        <div class="section-h">Co pro vás uděláme</div>
+      </div>
+      <a href="#" class="btn-outline" style="white-space:nowrap">Všechny služby →</a>
+    </div>
+
+    <div class="services-grid">
+      <!-- Service 1 -->
+      <div class="srv-card">
+        <div class="srv-number">01 / 06</div>
+        <div class="srv-icon">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#f0c419" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>
+          </svg>
+        </div>
+        <div class="srv-title">Domovní instalace</div>
+        <div class="srv-desc">Kompletní elektroinstalace od přípojky k distribuční síti až po zásuvky. Rozvody TV, internetu a domovní telefony.</div>
+        <a href="#" class="srv-arrow">Detail →</a>
+      </div>
+
+      <!-- Service 2 -->
+      <div class="srv-card">
+        <div class="srv-number">02 / 06</div>
+        <div class="srv-icon">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#888880" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/>
+          </svg>
+        </div>
+        <div class="srv-title">Kamerové systémy</div>
+        <div class="srv-desc">Dodání a montáž kamer se záznamem, upozorněním nebo vzdáleným přístupem. Pro domácnost i pracoviště.</div>
+        <a href="#" class="srv-arrow">Detail →</a>
+      </div>
+
+      <!-- Service 3 -->
+      <div class="srv-card">
+        <div class="srv-number">03 / 06</div>
+        <div class="srv-icon">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#888880" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>
+          </svg>
+        </div>
+        <div class="srv-title">Průmyslové rozváděče</div>
+        <div class="srv-desc">Rozváděče pro ovládání strojů, jejich výroba i servis. Rozvody napájení pro průmyslové i komerční provozy.</div>
+        <a href="#" class="srv-arrow">Detail →</a>
+      </div>
+
+      <!-- Service 4 -->
+      <div class="srv-card">
+        <div class="srv-number">04 / 06</div>
+        <div class="srv-icon">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#888880" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z"/>
+          </svg>
+        </div>
+        <div class="srv-title">Efektivní vytápění</div>
+        <div class="srv-desc">Tepelná čerpadla, topné rohože, regulace a optimalizace stávajících rozvodů. Vše s možností dálkového ovládání.</div>
+        <a href="#" class="srv-arrow">Detail →</a>
+      </div>
+
+      <!-- Service 5 -->
+      <div class="srv-card">
+        <div class="srv-number">05 / 06</div>
+        <div class="srv-icon">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#888880" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+          </svg>
+        </div>
+        <div class="srv-title">Přístupové systémy</div>
+        <div class="srv-desc">Realizace domovních telefonů, přístupových systémů a elektronického zabezpečení pro bytové domy i firmy.</div>
+        <a href="#" class="srv-arrow">Detail →</a>
+      </div>
+
+      <!-- Service 6 -->
+      <div class="srv-card">
+        <div class="srv-number">06 / 06</div>
+        <div class="srv-icon">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#888880" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/>
+          </svg>
+        </div>
+        <div class="srv-title">Revize &amp; Dokumentace</div>
+        <div class="srv-desc">Odborné revize elektroinstalací a veškerá potřebná dokumentace pro legislativní požadavky, včetně kolaudace.</div>
+        <a href="#" class="srv-arrow">Detail →</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section>
+  <div class="section">
+    <div class="about-grid">
+      <div class="about-panel">
+        <div class="about-panel-head">
+          <div class="about-big-number">ES23</div>
+          <div class="about-founded">// Elektroservis 23</div>
+          <div class="about-tagline">Kvalita<br>a poctivost<br>v každém spoji.</div>
+        </div>
+        <div class="about-stats">
+          <div class="about-stat"><div class="about-stat-n">15+</div><div class="about-stat-l">Let praxe</div></div>
+          <div class="about-stat"><div class="about-stat-n">500+</div><div class="about-stat-l">Zakázek</div></div>
+          <div class="about-stat"><div class="about-stat-n">ČSN</div><div class="about-stat-l">Dle norem</div></div>
+          <div class="about-stat"><div class="about-stat-n">24/7</div><div class="about-stat-l">Havarijní servis</div></div>
+        </div>
+      </div>
+
+      <div class="about-content">
+        <div class="eyebrow">O nás</div>
+        <div class="section-h">Proč zvolit ES23</div>
+        <p class="section-sub">Chceme Vám nabídnout kvalitní, hezkou a hlavně funkční práci provedenou dle platných norem. Každý detail řešíme pro spokojenost zákazníka i revizních techniků.</p>
+
+        <div class="features">
+          <div class="feat">
+            <div class="feat-idx">01</div>
+            <div>
+              <div class="feat-title">Práce dle platných norem ČSN</div>
+              <div class="feat-text">Veškeré instalace provádíme v souladu s aktuálními elektrotechnickými normami, aby revize proběhla bez problémů.</div>
+            </div>
+          </div>
+          <div class="feat">
+            <div class="feat-idx">02</div>
+            <div>
+              <div class="feat-title">Komplexní řešení na klíč</div>
+              <div class="feat-text">Od projektu přes realizaci až po revizi a dokumentaci — vše zajistíme v rámci jedné zakázky.</div>
+            </div>
+          </div>
+          <div class="feat">
+            <div class="feat-idx">03</div>
+            <div>
+              <div class="feat-title">Prověřená síť partnerů</div>
+              <div class="feat-text">Spolupracujeme s odborníky na vytápění, stavbu, strojní zařízení i zemní práce — zajistíme kompletní rekonstrukci.</div>
+            </div>
+          </div>
+          <div class="feat">
+            <div class="feat-idx">04</div>
+            <div>
+              <div class="feat-title">Rychlá odezva a havarijní servis</div>
+              <div class="feat-text">V případě poruchy reagujeme operativně a zajišťujeme rychlé a bezpečné opravy.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PARTNERS -->
+<div class="partners-bg">
+  <div class="section">
+    <div class="eyebrow">Spolupracujeme s</div>
+    <div class="section-h">Naši partneři</div>
+    <div class="partners-grid">
+      <div class="partner-card">
+        <div class="partner-abbr">JISO</div>
+        <div class="partner-name">JISO Tanvald s.r.o.</div>
+        <div class="partner-desc">Rozvody vytápění a sanita. Rekonstrukce koupelen a vytápění na míru.</div>
+      </div>
+      <div class="partner-card">
+        <div class="partner-abbr">SH</div>
+        <div class="partner-name">Stavební společenstvo Huschek</div>
+        <div class="partner-desc">Veškeré zednické práce. Spolupráce na rekonstrukcích i nových stavbách.</div>
+      </div>
+      <div class="partner-card">
+        <div class="partner-abbr">PZS</div>
+        <div class="partner-name">PZS s.r.o.</div>
+        <div class="partner-desc">Stroje a strojní zařízení. Regulace teploty v pecích a průmyslové automatizace.</div>
+      </div>
+      <div class="partner-card">
+        <div class="partner-abbr">DML</div>
+        <div class="partner-name">Domaluk</div>
+        <div class="partner-desc">Zemní a výkopové práce. Přípojky k domům, základové desky, opěrné zdi.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PROCESS -->
+<div class="process-bg">
+  <div class="section">
+    <div class="eyebrow">Jak pracujeme</div>
+    <div class="section-h">Od poptávky k hotové<br>instalaci</div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-n">01</div>
+        <div class="step-title">Konzultace</div>
+        <div class="step-text">Zavolejte nebo napište. Probereme váš záměr, prostory a požadavky — zcela zdarma a nezávazně.</div>
+      </div>
+      <div class="step">
+        <div class="step-n">02</div>
+        <div class="step-title">Cenová nabídka</div>
+        <div class="step-text">Připravíme přesnou nabídku s rozpisem prací a materiálu. Žádné skryté poplatky.</div>
+      </div>
+      <div class="step">
+        <div class="step-n">03</div>
+        <div class="step-title">Realizace</div>
+        <div class="step-text">Provedeme veškeré práce čistě, přesně a dle platných norem. Dodržujeme dohodnutý termín.</div>
+      </div>
+      <div class="step">
+        <div class="step-n">04</div>
+        <div class="step-title">Revize &amp; Předání</div>
+        <div class="step-text">Zajistíme odbornou revizi, předáme kompletní dokumentaci a vysvětlíme ovládání.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CONTACT -->
+<div class="contact-wrapper">
+  <div class="contact-left">
+    <div class="eyebrow">Kontakt</div>
+    <div class="contact-heading">Pojďme<br>spolupracovat</div>
+    <p class="contact-sub">Připravíme vám nezávaznou nabídku nebo zodpovíme jakékoliv otázky ohledně elektroinstalací.</p>
+    <div class="contact-items">
+      <div class="ci">
+        <div class="ci-dot"></div>
+        <div>
+          <div class="ci-label">Telefon</div>
+          <div class="ci-value">+420 602 88 99 39</div>
+        </div>
+      </div>
+      <div class="ci">
+        <div class="ci-dot"></div>
+        <div>
+          <div class="ci-label">E-mail</div>
+          <div class="ci-value">brie@seznam.cz</div>
+        </div>
+      </div>
+      <div class="ci">
+        <div class="ci-dot"></div>
+        <div>
+          <div class="ci-label">Oblast působení</div>
+          <div class="ci-value">Severní Čechy a okolí</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="contact-right">
+    <div class="contact-form-inner">
+    <div class="form-heading">Nezávazná poptávka</div>
+    <div class="form-row">
+      <div class="fg"><label>Jméno</label><input type="text" placeholder="Jan Novák"></div>
+      <div class="fg"><label>Telefon</label><input type="tel" placeholder="+420 ..."></div>
+    </div>
+    <div class="fg"><label>E-mail</label><input type="email" placeholder="jan@email.cz"></div>
+    <div class="fg">
+      <label>Typ služby</label>
+      <select>
+        <option>Domovní elektroinstalace</option>
+        <option>Kamerový systém</option>
+        <option>Průmyslový rozváděč</option>
+        <option>Vytápění / Tepelné čerpadlo</option>
+        <option>Revize a dokumentace</option>
+        <option>Nevím, potřebuji poradit</option>
+      </select>
+    </div>
+    <div class="fg"><label>Popis projektu</label><textarea placeholder="Stručně popište, co potřebujete..."></textarea></div>
+    <button class="submit-btn">
+      <span>Odeslat poptávku</span>
+      <svg width="18" height="18" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+    </div><!-- /contact-form-inner -->
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">
+    <div class="logo-mark" style="width:30px;height:30px;">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#0a0a0a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+      </svg>
+    </div>
+    <div class="footer-logo-text">ELEKTROSERVIS <span>23</span></div>
+  </div>
+
+  <ul class="footer-links">
+    <li><a href="#">Služby</a></li>
+    <li><a href="#">Naše práce</a></li>
+    <li><a href="#">O nás</a></li>
+    <li><a href="#">Kontakt</a></li>
+  </ul>
+
+  <div class="footer-copy">© 2025 Elektroservis 23 · es23.cz</div>
+</footer>
+
+<div class="demo-tag">✦ Vizualizace nového webu</div>
+
+</body>
+</html>
